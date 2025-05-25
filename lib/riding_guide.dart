@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:logger/logger.dart';
 
+
 class RidingGuideContent extends StatelessWidget {
   RidingGuideContent({super.key});
 
@@ -410,7 +411,7 @@ class _HowToRidePageState extends State<HowToRidePage> {
                           Positioned(
                             top: 180.0,
                             left: -50.0,
-                            child: Container(
+                            child: SizedBox(
                               width: 500.0,
                               height: 300.0,
                               child: CachedNetworkImage(
@@ -424,7 +425,7 @@ class _HowToRidePageState extends State<HowToRidePage> {
                           Positioned(
                             top: 100.0,
                             left: 150.0,
-                            child: Container(
+                            child: SizedBox(
                               width: 100.0,
                               height: 100.0,
                               child: CachedNetworkImage(
@@ -466,7 +467,7 @@ class _HowToRidePageState extends State<HowToRidePage> {
                           Positioned(
                             top: 50.0,
                             left: -100.0,
-                            child: Container(
+                            child: SizedBox(
                               width: 600.0,
                               height: 400.0,
                               child: CachedNetworkImage(
@@ -508,7 +509,7 @@ class _HowToRidePageState extends State<HowToRidePage> {
                           Positioned(
                             top: 50.0,
                             left: -100.0,
-                            child: Container(
+                            child: SizedBox(
                               width: 600.0,
                               height: 400.0,
                               child: CachedNetworkImage(
@@ -550,7 +551,7 @@ class _HowToRidePageState extends State<HowToRidePage> {
                           Positioned(
                             top: 50.0,
                             left: -100.0,
-                            child: Container(
+                            child: SizedBox(
                               width: 600.0,
                               height: 400.0,
                               child: CachedNetworkImage(
@@ -592,7 +593,7 @@ class _HowToRidePageState extends State<HowToRidePage> {
                           Positioned(
                             top: 100.0,
                             left: -50.0,
-                            child: Container(
+                            child: SizedBox(
                               width: 500.0,
                               height: 300.0,
                               child: CachedNetworkImage(

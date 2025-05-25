@@ -1,4 +1,3 @@
-//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -7,15 +6,15 @@ import 'dart:convert';
 import 'dart:ui' as ui;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ju_scooter/session_manager.dart'; // الاستيراد المصحح
-//import 'dart:io';
-
 import 'payment.dart'; // استدعاء الملف المنفصل
 import 'qr.dart'; // استدعاء الملف المنفصل
 import 'riding_guide.dart'; // استدعاء الملف المنفصل
 import 'menu.dart'; // استدعاء الملف المنفصل
+import 'help.dart'; // استدعاء صفحة HelpScreen
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final int initialTab;
+  const HomeScreen({super.key, this.initialTab = 0});
 
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -61,6 +60,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _selectedIndex = widget.initialTab;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await _initializeApp();
     });
@@ -111,6 +111,7 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadCustomIcons() async {
+    // ignore: deprecated_member_use
     _scooterIcon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(size: ui.Size(48, 48)), 'assets/scooter_icon.png');
 
@@ -472,8 +473,6 @@ class HomeScreenState extends State<HomeScreen> {
     return points;
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -639,12 +638,10 @@ class HomeScreenState extends State<HomeScreen> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        debugPrint('Support button tapped');
-                        if (mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Support button tapped')),
-                          );
-                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HelpScreen()),
+                        );
                       },
                       child: SvgPicture.asset(
                         'assets/support.svg',

@@ -208,6 +208,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         );
                         await user.reauthenticateWithCredential(credential);
                         reauthSuccess = true;
+                        // ignore: use_build_context_synchronously
                         Navigator.of(dialogContext).pop();
                       } catch (e) {
                         setDialogState(() {

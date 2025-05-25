@@ -122,6 +122,7 @@ class _QrContentState extends State<QrContent> {
 
       final scooterDoc = await firestore.collection('scooters').doc(serial).get();
       if (!scooterDoc.exists) {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Invalid scooter serial number: $serial')),
         );
@@ -130,6 +131,7 @@ class _QrContentState extends State<QrContent> {
 
       final scooterData = scooterDoc.data()!;
       if (scooterData['status'] != 'available') {
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Scooter is not available for rent')),
         );
