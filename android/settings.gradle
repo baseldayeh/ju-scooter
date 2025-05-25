@@ -1,0 +1,44 @@
+pluginManagement {
+    def flutterSdkPath = {
+        def properties = new Properties()
+        // Assuming local.properties exists at the root of the project directory
+        // Adjust the path if your local.properties file is elsewhere
+        // Typically, it's in the android folder's parent directory
+        def localPropertiesFile = new File(rootDir, "local.properties") // Check if rootDir works or adjust path
+        if (!localPropertiesFile.exists()) {
+             localPropertiesFile = new File(settingsDir.parentFile, "local.properties") // Try parent directory
+        }
+         if (!localPropertiesFile.exists()) {
+             localPropertiesFile = file("../local.properties") // Another common location relative to android folder
+        }
+
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.withInputStream { properties.load(it) }
+        }
+
+        def flutterSdkPath = properties.getProperty("flutter.sdk")
+        assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+        return flutterSdkPath
+    }()
+
+    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+    // --- تم التعديل هنا ---
+    id "com.android.application" version "8.2.1" apply false
+    // START: FlutterFire Configuration
+    id "com.google.gms.google-services" version "4.3.15" apply false
+    // END: FlutterFire Configuration
+    // ----------------------
+    id "org.jetbrains.kotlin.android" version "1.8.22" apply false // (يمكن تحديث إصدار Kotlin لاحقاً إذا لزم الأمر)
+}
+
+include ':app'

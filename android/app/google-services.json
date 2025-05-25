@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "186920754515",
+    "project_id": "ju-scooter",
+    "storage_bucket": "ju-scooter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186920754515:android:f60e089f6e92f29daa55a6",
+        "android_client_info": {
+          "package_name": "com.example.p3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpctjhXNOm4h-q7IGrNAkHK4ZbQ9Z4xTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

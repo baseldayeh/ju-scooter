@@ -1,0 +1,35 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "ju-scooter",
+          "appId": "1:186920754515:android:f60e089f6e92f29daa55a6",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "ju-scooter",
+          "configurations": {
+            "android": "1:186920754515:android:f60e089f6e92f29daa55a6",
+            "ios": "1:186920754515:ios:7cdc02f862da7d62aa55a6"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ]
+}

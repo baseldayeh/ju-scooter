@@ -1,0 +1,44 @@
+plugins {
+    id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    // END: FlutterFire Configuration
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.example.p3"
+    compileSdk = 35 // Android 14 (محدث بالفعل)
+    
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17 // تحديث إلى Java 17
+        targetCompatibility = JavaVersion.VERSION_17 // تحديث إلى Java 17
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_17 // تحديث إلى Java 17
+    }
+
+    defaultConfig {
+        applicationId = "com.example.p3"
+        minSdk = 23 // Android 6.0 (مناسب)
+        targetSdk = 35 // Android 14 (مناسب)
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}

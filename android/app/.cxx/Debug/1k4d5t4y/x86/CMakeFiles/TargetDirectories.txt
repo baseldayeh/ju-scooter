@@ -1,0 +1,2 @@
+C:/Users/LENOVO/Desktop/projects/ju_scooter-main/ju_scooter-main/android/app/.cxx/Debug/1k4d5t4y/x86/CMakeFiles/edit_cache.dir
+C:/Users/LENOVO/Desktop/projects/ju_scooter-main/ju_scooter-main/android/app/.cxx/Debug/1k4d5t4y/x86/CMakeFiles/rebuild_cache.dir
