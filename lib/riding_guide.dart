@@ -194,60 +194,7 @@ class RidingGuideContent extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 8.0,
-                  spreadRadius: 2.0,
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.home),
-                  onPressed: () {},
-                  color: Colors.grey,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.payment),
-                  onPressed: () {},
-                  color: Colors.grey,
-                ),
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [Color(0xFF012D37), Color(0xFF635E5B), Color(0xFF001637)],
-                      stops: [0.0, 0.5, 1.0],
-                    ),
-                  ),
-                  child: const Center(
-                    child: Icon(Icons.qr_code, color: Colors.white),
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.directions_bike),
-                  onPressed: () {},
-                  color: Colors.grey,
-                ),
-                IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {},
-                  color: Colors.grey,
-                ),
-              ],
-            ),
-          ),
+          // === احذف الـ Navigation Bar السفلي نهائياً من هنا ===
         ],
       ),
     );
