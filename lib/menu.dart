@@ -1698,68 +1698,10 @@ class _MenuContentState extends State<MenuContent> {
                         top: 520,
                         left: 45,
                         child: Text(
-                          'App version juscooter-1.0',
+                          'App version juscooter-3.0.3',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: Container(
-                          height: 70,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300]!.withAlpha(51),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withAlpha(26),
-                                blurRadius: 8.0,
-                                spreadRadius: 2.0,
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.home),
-                                onPressed: () {},
-                                color: Colors.blue,
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.payment),
-                                onPressed: () {},
-                                color: Colors.blue,
-                              ),
-                              Container(
-                                width: 50,
-                                height: 50,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  gradient: LinearGradient(
-                                    begin: Alignment.centerLeft,
-                                    end: Alignment.centerRight,
-                                    colors: [Color(0xFF00FF00), Color(0xFFFF0000)],
-                                  ),
-                                ),
-                                child: const Center(
-                                  child: Icon(Icons.qr_code, color: Colors.white),
-                                ),
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.directions_bike),
-                                onPressed: () {},
-                                color: Colors.blue,
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.menu),
-                                onPressed: () {},
-                                color: Colors.red,
-                              ),
-                            ],
                           ),
                         ),
                       ),
