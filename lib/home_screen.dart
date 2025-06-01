@@ -11,6 +11,7 @@ import 'qr.dart'; // استدعاء الملف المنفصل
 import 'riding_guide.dart'; // استدعاء الملف المنفصل
 import 'menu.dart'; // استدعاء الملف المنفصل
 import 'help.dart'; // استدعاء صفحة HelpScreen
+import 'package:url_launcher/url_launcher.dart'; // أضف الاستيراد اللازم للروابط الخارجية
 
 class HomeScreen extends StatefulWidget {
   final int initialTab;
@@ -157,10 +158,11 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void _addDummyScooters() {
-    final List<Map<String, dynamic>> dummyScooterLocations = const [
-      {'id': 'scooter_1', 'lat': 32.0170, 'lng': 35.8460},
-      {'id': 'scooter_2', 'lat': 32.0150, 'lng': 35.8480},
-      {'id': 'scooter_3', 'lat': 32.0185, 'lng': 35.8440},
+    // أصلح الخطأ في تعريف الخرائط: لا تضع ":" في اسم المفتاح
+    final List<Map<String, dynamic>> dummyScooterLocations = [
+      {'id': 'JES-HA-17-8939', 'lat': 32.0170, 'lng': 35.8460},
+      {'id': 'JES-HA-17-8940', 'lat': 32.0150, 'lng': 35.8480},
+      {'id': 'JES-HA-17-8941', 'lat': 32.0185, 'lng': 35.8440},
     ];
 
     Set<Marker> scooters = {};
@@ -176,19 +178,16 @@ class HomeScreenState extends State<HomeScreen> {
             title: 'Scooter ${scooterData['id']}',
             snippet: 'Battery: 85%',
             onTap: () async {
-              debugPrint('Tapped on Scooter ${scooterData['id']}');
               if (mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Tapped on Scooter ${scooterData['id']}')),
-                );
-                setState(() {
-                  _destination = LatLng(scooterData['lat'], scooterData['lng']);
-                  _routePoints = [];
-                });
-                drawRoute();
+                _showScooterDetails(context, scooterData['id']);
               }
             },
           ),
+          onTap: () {
+            if (mounted) {
+              _showScooterDetails(context, scooterData['id']);
+            }
+          },
         ),
       );
     }
@@ -198,6 +197,268 @@ class HomeScreenState extends State<HomeScreen> {
         _scooterMarkers = scooters;
       });
     }
+  }
+
+  void _showScooterDetails(BuildContext context, String scooterId) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        // روابط الصور من Firebase
+        const String visaUrl = 'https://firebasestorage.googleapis.com/v0/b/ju-scooter.firebasestorage.app/o/payment%2Fimage%2012.png?alt=media&token=1ffc7f80-2def-48a4-8f2a-1beb1cfb887b';
+        const String mcUrl = 'https://firebasestorage.googleapis.com/v0/b/ju-scooter.firebasestorage.app/o/payment%2Fimage%2011.png?alt=media&token=aaad7993-df44-470b-a361-aac0b719f7d5';
+        const String scooterImgUrl = 'https://firebasestorage.googleapis.com/v0/b/ju-scooter.firebasestorage.app/o/payment%2Femojione_kick-scooter.jpg?alt=media&token=e42d09a3-47dc-4fbc-a4be-7000c45e1027';
+        const String reportIconUrl = 'https://firebasestorage.googleapis.com/v0/b/ju-scooter.firebasestorage.app/o/payment%2FVector%20(1).png?alt=media&token=852c48eb-f558-4e0f-ac21-08b1ea961966';
+        const String speedIconUrl = 'https://firebasestorage.googleapis.com/v0/b/ju-scooter.firebasestorage.app/o/payment%2FGroup.png?alt=media&token=5d09bf62-6493-40cd-9ba6-0652ba9a124b';
+        const String reserveIconUrl = 'https://firebasestorage.googleapis.com/v0/b/ju-scooter.firebasestorage.app/o/payment%2FVector%20(2).png?alt=media&token=e1b82914-430f-4b24-91d9-b6095d30cb15';
+
+        final String scooterNumber = scooterId;
+        final int batteryPercent = 100;
+        final String range = "20km";
+
+        return Container(
+          margin: const EdgeInsets.only(left: 18, right: 18, bottom: 0, top: 0), // 18px لكل جانب
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(32),
+              topRight: Radius.circular(32),
+            ),
+            boxShadow: [
+              BoxShadow(
+                // ignore: deprecated_member_use
+                color: Colors.black.withOpacity(0.08),
+                blurRadius: 16,
+                spreadRadius: 2,
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Center(
+                  child: Container(
+                    width: 48,
+                    height: 5,
+                    margin: const EdgeInsets.only(bottom: 18),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    scooterNumber,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22, letterSpacing: 2),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Image.network(visaUrl, width: 32, height: 20, fit: BoxFit.contain),
+                    const SizedBox(width: 4),
+                    Image.network(mcUrl, width: 32, height: 20, fit: BoxFit.contain),
+                    const SizedBox(width: 8),
+                    const Text(
+                      "0.35 for 10 min",
+                      style: TextStyle(fontSize: 13, color: Colors.grey),
+                    ),
+                    const SizedBox(width: 4),
+                    const Text(
+                      "•",
+                      style: TextStyle(fontSize: 18, color: Colors.grey, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 4),
+                    const Text(
+                      "0.05/3 min",
+                      style: TextStyle(fontSize: 13, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(Icons.battery_full, color: Colors.green, size: 24),
+                    const SizedBox(width: 6),
+                    Text(
+                      "$batteryPercent%,$range range",
+                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    ),
+                    const Spacer(),
+                    Image.network(
+                      scooterImgUrl,
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.contain,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Reserve
+                    GestureDetector(
+                      onTap: () {
+                        // يمكنك إضافة منطق الحجز هنا
+                      },
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.cyan[50],
+                            radius: 24,
+                            child: Image.network(reserveIconUrl, width: 28, height: 28),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text("Reserve", style: TextStyle(fontSize: 13, color: Color(0xFF00C2FF))),
+                        ],
+                      ),
+                    ),
+                    // Speed mode
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        // بدلاً من push إلى MenuContent، غير _selectedIndex ليظهر MenuContent مع navigation bar
+                        setState(() {
+                          _selectedIndex = 4;
+                        });
+                      },
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.red[50],
+                            radius: 24,
+                            child: Image.network(speedIconUrl, width: 28, height: 28),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text("Speed mode", style: TextStyle(fontSize: 13, color: Color(0xFFFF5B5B))),
+                        ],
+                      ),
+                    ),
+                    // Report Issue
+                    GestureDetector(
+                      onTap: () async {
+                        Navigator.pop(context);
+                        final url = Uri.parse('https://forms.gle/op5L6cjgUXPhpUiz5');
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(url, mode: LaunchMode.externalApplication);
+                        }
+                      },
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.amber[50],
+                            radius: 24,
+                            child: Image.network(reportIconUrl, width: 28, height: 28),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text("Report Issue", style: TextStyle(fontSize: 13, color: Color(0xFF1A1A1A))),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[50],
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Payment", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey)),
+                      const SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          // الحل الصحيح: غير _selectedIndex ليظهر PaymentContent داخل الـ IndexedStack مع الـ navigation bar
+                          setState(() {
+                            _selectedIndex = 1;
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            Image.network(visaUrl, width: 32, height: 20, fit: BoxFit.contain),
+                            const SizedBox(width: 4),
+                            Image.network(mcUrl, width: 32, height: 20, fit: BoxFit.contain),
+                            const SizedBox(width: 8),
+                            const Text("Payment method", style: TextStyle(fontSize: 16, color: Colors.black)),
+                            const Spacer(),
+                            Icon(Icons.chevron_right, color: Colors.grey[400]),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                          // نفس الشيء: غير _selectedIndex ليظهر PaymentContent (أي صفحة الدفع) مع navigation bar
+                          setState(() {
+                            _selectedIndex = 1;
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            Icon(Icons.local_offer, color: Color(0xFF00FF80), size: 28),
+                            const SizedBox(width: 8),
+                            Icon(Icons.percent, color: Color(0xFF00FF80), size: 28),
+                            const SizedBox(width: 8),
+                            const Text("Add Promo", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black)),
+                            const Spacer(),
+                            Icon(Icons.chevron_right, color: Colors.grey[400]),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 18),
+                // زر Start ride مع تدرج لوني
+                SizedBox(
+                  width: double.infinity,
+                  height: 52,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF00FFE1), Color(0xFF1DFF97), Color(0xFFC2FF1B)],
+                        stops: [0.0, 0.36, 0.67],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                      ),
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: const Text(
+                        "Start ride",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Future<void> _getCurrentLocation() async {
@@ -685,7 +946,7 @@ class HomeScreenState extends State<HomeScreen> {
               children: screens,
             ),
             Positioned(
-              bottom: 0,
+              bottom: 15,
               left: 0,
               right: 0,
               child: Container(
@@ -864,3 +1125,10 @@ class HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 }
+
+// ملاحظة: لجعل الـ navigation bar دائماً ظاهراً في جميع الصفحات، يجب أن تجعل التنقل بين PaymentContent وغيره يتم عبر تغيير الـ _selectedIndex في HomeScreen وليس عبر push لصفحات جديدة.
+// الحل الأفضل: اجعل كل صفحاتك (PaymentContent, QrContent, MenuContent, RidingGuideContent) تظهر داخل الـ IndexedStack في HomeScreen وغير _selectedIndex فقط.
+// إذا أردت أن تذهب إلى صفحة الدفع من أي مكان، استخدم:
+// setState(() { _selectedIndex = 1; });
+// بدلاً من Navigator.push(...).
+// ويمكنك تمرير دالة إلى الـ PaymentContent إذا احتجت ذلك.
