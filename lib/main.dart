@@ -122,11 +122,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Future<String> _getInitialRoute() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
+      bool isFirstLaunch = prefs.getBool('is_first_launch') ?? true;
       bool rememberMe = prefs.getBool('remember_me') ?? false;
 
       if (isFirstLaunch) {
-        await prefs.setBool('isFirstLaunch', false);
+        await prefs.setBool('is_first_launch', false);
         return '/tutorial';
       }
 
