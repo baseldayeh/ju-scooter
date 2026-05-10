@@ -577,7 +577,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   SizedBox(height: _formFieldVerticalSpacing),
                   DropdownButtonFormField<String>(
-                    value: _language,
+                    initialValue: _language,
                     decoration: InputDecoration(
                       labelText: 'Language',
                       labelStyle: TextStyle(color: labelColor),

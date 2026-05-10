@@ -487,7 +487,9 @@ class HomeScreenState extends State<HomeScreen> {
 
       Position position = await Geolocator.getLastKnownPosition() ??
           await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high,
+            locationSettings: const LocationSettings(
+              accuracy: LocationAccuracy.high,
+            ),
           );
 
       if (mounted) {
@@ -970,14 +972,13 @@ class HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = 0;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0, right: 15.0),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = 0;
+                          });
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -998,14 +999,13 @@ class HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = 1;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0, right: 60.0),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = 1;
+                          });
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -1029,14 +1029,14 @@ class HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = 3;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 70.0, right: 15.0),
+                    const SizedBox(width: 80), // Gap for QR button
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = 3;
+                          });
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -1050,6 +1050,8 @@ class HomeScreenState extends State<HomeScreen> {
                             ),
                             Text(
                               'Riding Guide',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: _selectedIndex == 3 ? ridingGuideSelectedColor : unselectedColor,
                                 fontSize: _selectedIndex == 3 ? 10.0 : 8.0,
@@ -1060,14 +1062,13 @@ class HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = 4;
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0, right: 15.0),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedIndex = 4;
+                          });
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

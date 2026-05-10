@@ -166,12 +166,6 @@ class SignInScreenState extends State<SignInScreen> {
     }
 
     String email = _emailController.text.trim();
-    if (!email.endsWith('@ju.edu.jo')) {
-      setState(() {
-        _errorMessage = 'Please use a valid university email (@ju.edu.jo)';
-      });
-      return;
-    }
     log('Attempting login with email: $email');
 
     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -306,7 +300,7 @@ class SignInScreenState extends State<SignInScreen> {
                 children: [
                   TextField(
                     controller: _resetEmailController,
-                    decoration: const InputDecoration(labelText: 'Enter your university email'),
+                    decoration: const InputDecoration(labelText: 'Enter your email'),
                     keyboardType: TextInputType.emailAddress,
                   ),
                   if (dialogError != null) ...[
@@ -331,8 +325,7 @@ class SignInScreenState extends State<SignInScreen> {
                   onPressed: dialogLoading
                       ? null
                       : () async {
-                          if (_resetEmailController.text.isNotEmpty &&
-                              _resetEmailController.text.endsWith('@ju.edu.jo')) {
+                          if (_resetEmailController.text.isNotEmpty) {
                             setDialogState(() {
                               dialogLoading = true;
                             });
@@ -352,7 +345,7 @@ class SignInScreenState extends State<SignInScreen> {
                             );
                           } else {
                             setDialogState(() {
-                              dialogError = 'Please enter a valid @ju.edu.jo email';
+                              dialogError = 'Please enter a valid email';
                             });
                           }
                         },
@@ -479,7 +472,7 @@ class SignInScreenState extends State<SignInScreen> {
                         children: [
                           SizedBox(height: screenSize.height * 0.05),
                           _buildTextFieldSignIn(
-                            label: 'University Email',
+                            label: 'Email',
                             icon: Icons.email_outlined,
                             focusNode: _emailFocus,
                             controller: _emailController,

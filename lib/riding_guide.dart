@@ -79,63 +79,59 @@ class RidingGuideContent extends StatelessWidget {
                 ),
                 SizedBox(height: 16),
                 Container(
-                  height: getStartedHeight,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: Colors.grey.shade300),
                     borderRadius: BorderRadius.circular(containerBorderRadius),
                   ),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Expanded(
-                        child: ListTile(
-                          leading: CachedNetworkImage(
-                            imageUrl: howToRideUrl,
-                            width: 24,
-                            height: 24,
-                            placeholder: (context, url) => const CircularProgressIndicator(),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                          ),
-                          title: const Text('How to ride scooters'),
-                          trailing: const Icon(Icons.chevron_right),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HowToRidePage(
-                                  page1ScooterUrl: page1ScooterUrl,
-                                  page1QrPhoneUrl: page1QrPhoneUrl,
-                                  page2ImageUrl: page2ImageUrl,
-                                  page3ImageUrl: page3ImageUrl,
-                                  page4ImageUrl: page4ImageUrl,
-                                  page5ImageUrl: page5ImageUrl,
-                                ),
-                              ),
-                            );
-                          },
+                      ListTile(
+                        leading: CachedNetworkImage(
+                          imageUrl: howToRideUrl,
+                          width: 24,
+                          height: 24,
+                          placeholder: (context, url) => const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
                         ),
+                        title: const Text('How to ride scooters'),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HowToRidePage(
+                                page1ScooterUrl: page1ScooterUrl,
+                                page1QrPhoneUrl: page1QrPhoneUrl,
+                                page2ImageUrl: page2ImageUrl,
+                                page3ImageUrl: page3ImageUrl,
+                                page4ImageUrl: page4ImageUrl,
+                                page5ImageUrl: page5ImageUrl,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       const Divider(height: 1, color: Colors.grey),
-                      Expanded(
-                        child: ListTile(
-                          leading: CachedNetworkImage(
-                            imageUrl: zoneGuideUrl,
-                            width: 24,
-                            height: 24,
-                            placeholder: (context, url) => const CircularProgressIndicator(),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                          ),
-                          title: const Text('Zone guide'),
-                          trailing: const Icon(Icons.chevron_right),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ZoneGuidePage(imageUrl: zoneGuideUrl1),
-                              ),
-                            );
-                          },
+                      ListTile(
+                        leading: CachedNetworkImage(
+                          imageUrl: zoneGuideUrl,
+                          width: 24,
+                          height: 24,
+                          placeholder: (context, url) => const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
                         ),
+                        title: const Text('Zone guide'),
+                        trailing: const Icon(Icons.chevron_right),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ZoneGuidePage(imageUrl: zoneGuideUrl1),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),

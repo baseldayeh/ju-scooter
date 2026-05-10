@@ -244,9 +244,6 @@ class SignUpScreenState extends State<SignUpScreen> {
     if (email.isEmpty) {
       _emailError = 'Email is required';
       isValid = false;
-    } else if (!email.endsWith('@ju.edu.jo')) {
-      _emailError = 'Only University of Jordan emails (@ju.edu.jo) are allowed';
-      isValid = false;
     }
 
     final firstName = _firstNameController.text;
@@ -495,7 +492,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _buildTextField(
-                      label: 'University Email',
+                      label: 'Email',
                       icon: Icons.email_outlined,
                       focusNode: _emailFocus,
                       controller: _emailController,

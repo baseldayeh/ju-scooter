@@ -4,8 +4,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.3.0'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0'
+        classpath 'com.android.tools.build:gradle:8.9.1'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.10'
         classpath 'com.google.gms:google-services:4.4.2'
     }
 }
@@ -15,11 +15,23 @@ allprojects {
         google()
         mavenCentral()
     }
+    configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion "2.1.10"
+            }
+        }
+    }
 }
 
 rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            freeCompilerArgs += ["-Xskip-metadata-version-check"]
+        }
+    }
 }
 subprojects {
     project.evaluationDependsOn(":app")

@@ -205,7 +205,7 @@ class VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       text: 'A verification email has been sent to ',
                     ),
                     TextSpan(
-                      text: _email ?? 'ju0210000@ju.edu.jo',
+                      text: _email ?? 'your email',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color(0xFFBA8A05),
